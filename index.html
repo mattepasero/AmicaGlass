@@ -10,6 +10,23 @@
 
   gtag('config', 'AW-17915339903');
 </script>
+<!-- Event snippet for Click-to-call conversion -->
+<script>
+function gtag_report_conversion(url) {
+  var callback = function () {
+    if (typeof(url) != 'undefined') {
+      window.location = url;
+    }
+  };
+  gtag('event', 'conversion', {
+      'send_to': 'AW-17915339903/XNhkCKa6o_wcEP_I2d5C',
+      'value': 1.0,
+      'currency': 'EUR',
+      'event_callback': callback
+  });
+  return false;
+}
+</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Sostituzione Parabrezza Asti in 24h | Amica Glass</title>
@@ -767,8 +784,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     if(!a) return;
     var type = a.getAttribute('data-track');
     if(type === 'call'){
+      e.preventDefault();
       window.dataLayer.push({event:'click_chiamata', posizione: a.closest('.stickybar') ? 'sticky' : 'pagina'});
       if(typeof fbq === 'function') fbq('track','Contact');
+      if(typeof gtag_report_conversion === 'function') gtag_report_conversion(a.href);
+      else window.location = a.href;
     } else if(type === 'scroll_form'){
       window.dataLayer.push({event:'click_cta_form'});
     }

@@ -10,6 +10,27 @@
 
   gtag('config', 'AW-17915339903');
 </script>
+<!-- Event snippet for Invio modulo per i lead conversion page -->
+<script>
+  gtag('event', 'conversion', {'send_to': 'AW-17915339903/vrTnCKO6o_wcEP_I2d5C'});
+</script>
+<!-- Event snippet for Click-to-call conversion -->
+<script>
+function gtag_report_conversion(url) {
+  var callback = function () {
+    if (typeof(url) != 'undefined') {
+      window.location = url;
+    }
+  };
+  gtag('event', 'conversion', {
+      'send_to': 'AW-17915339903/XNhkCKa6o_wcEP_I2d5C',
+      'value': 1.0,
+      'currency': 'EUR',
+      'event_callback': callback
+  });
+  return false;
+}
+</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Richiesta ricevuta | AmicaGlass</title>
@@ -282,8 +303,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   document.addEventListener('click', function(e){
     var a = e.target.closest ? e.target.closest('[data-track]') : null;
     if(!a) return;
+    e.preventDefault();
     window.dataLayer.push({event:'click_chiamata', posizione:'thank-you'});
     if(typeof fbq === 'function') fbq('track','Contact');
+    if(typeof gtag_report_conversion === 'function') gtag_report_conversion(a.href);
+    else window.location = a.href;
   }, false);
 })();
 </script>
